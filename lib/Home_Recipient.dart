@@ -1,42 +1,42 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:sharesome/Donor_select_Donation_Type.dart';
+import 'package:flutter/material.dart';
 import 'package:sharesome/Post_Donation.dart';
 import 'package:sharesome/card.dart';
+import 'package:sharesome/card1.dart';
+import 'package:sharesome/donor_oldage_fund.dart';
 import 'package:sharesome/donor_oldagehome_view.dart';
 import 'package:sharesome/header.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sharesome/settings.dart';
 
-class HomeDonar extends StatefulWidget {
-  const HomeDonar({super.key});
+class HomeRecipient extends StatefulWidget {
+  const HomeRecipient({super.key});
 
   @override
-  State<HomeDonar> createState() => _HomeDonarState();
+  State<HomeRecipient> createState() => _HomeRecipientState();
 }
 
-class _HomeDonarState extends State<HomeDonar> {
+class _HomeRecipientState extends State<HomeRecipient> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool _isNotificationEnabled = true;
-  String donorFirstName = '';
-  String businessName = '';
+  String recipientFirstName = '';
+  String organizationName = '';
 
   @override
   void initState() {
     super.initState();
-    _fetchDonorData();
+    _fetchRecipientData();
   }
 
-  Future<void> _fetchDonorData() async {
+  Future<void> _fetchRecipientData() async {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       String uid = user.uid;
       try {
         DocumentSnapshot docSnapshot = await FirebaseFirestore.instance
-            .collection('donors')
+            .collection('recipient')
             .doc(uid)
             .get();
 
@@ -44,8 +44,8 @@ class _HomeDonarState extends State<HomeDonar> {
           Map<String, dynamic> data =
               docSnapshot.data() as Map<String, dynamic>;
           setState(() {
-            donorFirstName = data['firstName'] ?? '';
-            businessName = data['businessName'] ?? '';
+            recipientFirstName = data['First'] ?? '';
+            organizationName = data['Organization Name'] ?? '';
           });
         }
       } catch (e) {
@@ -65,7 +65,7 @@ class _HomeDonarState extends State<HomeDonar> {
               color: Colors.white, // Set the background color to white
             ),
             accountName: Text(
-              donorFirstName,
+              recipientFirstName,
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 20,
@@ -75,7 +75,7 @@ class _HomeDonarState extends State<HomeDonar> {
               ),
             ),
             accountEmail: Text(
-              businessName,
+              organizationName,
               style: TextStyle(
                 color: Color(0xFF9AA2AB),
                 fontSize: 12,
@@ -85,7 +85,7 @@ class _HomeDonarState extends State<HomeDonar> {
               ),
             ),
             currentAccountPicture: CircleAvatar(
-              backgroundImage: AssetImage('assets/Ellipse 9.png'),
+              backgroundImage: AssetImage('assets/Profile_resipi.png'),
             ),
           ),
           // Use Expanded to ensure the ListView takes the remaining available space
@@ -94,8 +94,8 @@ class _HomeDonarState extends State<HomeDonar> {
               padding: EdgeInsets.zero,
               children: <Widget>[
                 ListTile(
-                  leading: SvgPicture.asset(
-                    'assets/profile.svg', // Replace with your image path
+                  leading: Image.asset(
+                    'assets/profile.png', // Replace with your image path
                     width: 24,
                     height: 24,
                   ),
@@ -182,11 +182,7 @@ class _HomeDonarState extends State<HomeDonar> {
                     color: Colors.orange, // Set the color to orange
                   ),
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Setting()), // Adjust as needed
-                    );
+                    // Action for Settings
                   },
                 ),
               ],
@@ -227,13 +223,13 @@ class _HomeDonarState extends State<HomeDonar> {
                         },
                         child: const CircleAvatar(
                           backgroundImage: AssetImage(
-                              'assets/Ellipse 9.png'), // Ensure this path is correct
+                              'assets/Profile_resipi.png'), // Ensure this path is correct
                           radius: 25,
                         ),
                       ),
                       title: Text(
-                        donorFirstName,
-                        style: const TextStyle(
+                        recipientFirstName,
+                        style: TextStyle(
                           color: Colors.black,
                           fontSize: 16,
                           fontFamily: 'Inter',
@@ -242,8 +238,8 @@ class _HomeDonarState extends State<HomeDonar> {
                         ),
                       ),
                       subtitle: Text(
-                        businessName,
-                        style: const TextStyle(
+                        organizationName,
+                        style: TextStyle(
                           color: Color(0xFF9AA2AB),
                           fontSize: 10,
                           fontFamily: 'Inter',
@@ -294,7 +290,7 @@ class _HomeDonarState extends State<HomeDonar> {
                             child: TextField(
                               decoration: InputDecoration(
                                 border: InputBorder.none,
-                                hintText: 'Search for Recipients',
+                                hintText: 'Search for Donor',
                                 hintStyle: TextStyle(
                                   color: Color(0xFF9AA2AB),
                                   fontSize: 12,
@@ -347,7 +343,7 @@ class _HomeDonarState extends State<HomeDonar> {
                             children: [
                               // Title Text
                               const Text(
-                                'Waste No Food',
+                                'End Starvation Struggles',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 16,
@@ -360,7 +356,7 @@ class _HomeDonarState extends State<HomeDonar> {
                               const SizedBox(
                                 width: 152,
                                 child: Text(
-                                  'One man’s trash is another man’s treasure',
+                                  'Quickly improve, increase and solve urgent food shortages and problems.',
                                   style: TextStyle(
                                     color: Color(0xFF9AA2AB),
                                     fontSize: 10,
@@ -378,8 +374,7 @@ class _HomeDonarState extends State<HomeDonar> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          DonationTypeScreen(),
+                                      builder: (context) => PostDonation(),
                                     ),
                                   );
                                 },
@@ -394,7 +389,7 @@ class _HomeDonarState extends State<HomeDonar> {
                                   ),
                                   child: const Center(
                                     child: Text(
-                                      'Donate Now',
+                                      'Request Food',
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 10,
@@ -412,7 +407,7 @@ class _HomeDonarState extends State<HomeDonar> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
@@ -435,7 +430,7 @@ class _HomeDonarState extends State<HomeDonar> {
                                           DonorOldagehomeView()),
                                 );
                               },
-                              child: FoodRequestCard(),
+                              child: FoodRequestCard1(),
                             ),
                           ),
                           const SizedBox(
@@ -460,7 +455,7 @@ class _HomeDonarState extends State<HomeDonar> {
                                           DonorOldagehomeView()),
                                 );
                               },
-                              child: FoodRequestCard(),
+                              child: FoodRequestCard1(),
                             ),
                           ),
                           const SizedBox(
