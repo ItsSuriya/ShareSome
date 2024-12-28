@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:sharesome/onboarding2.dart';
-// import 'package:sharesome/Mobile_Login.dart';
+import 'package:sharesome/Mobile_Login.dart';
 
 class Onboarding3 extends StatefulWidget {
   const Onboarding3({super.key});
@@ -130,7 +129,7 @@ class _Onboarding3State extends State<Onboarding3> {
                     Navigator.push(
                       context,
                       PageTransition(
-                        child: Onboarding2(),
+                        child: LoginPage(),
                         type: PageTransitionType.rightToLeft,
                       ),
                     );
