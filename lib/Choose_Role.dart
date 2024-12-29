@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:sharesome/donorpersonal.dart';
 import 'package:sharesome/ngo_personal.dart';
+import 'package:sharesome/recipientpersonal.dart';
 // Ensure this path is correct
 
 class UserSelectionPage extends StatefulWidget {
@@ -34,6 +35,11 @@ class _UserSelectionPageState extends State<UserSelectionPage> {
             builder: (context) => NgoPersonal()), // Adjust as needed
       );
     } else if (_selectedOption == 'Recipient') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => RecipientPersonal()), // Adjust as needed
+      );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please select an option')),

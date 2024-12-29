@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sharesome/Donor_select_Donation_Type.dart';
 import 'package:sharesome/Post_Donation.dart';
 import 'package:sharesome/card.dart';
+import 'package:sharesome/donor_active_requests.dart';
 import 'package:sharesome/donor_oldagehome_view.dart';
 import 'package:sharesome/header.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -693,7 +694,7 @@ class _HomeDonarState extends State<HomeDonar> {
 class SectionHeader extends StatelessWidget {
   final String title;
 
-  const SectionHeader({required this.title});
+  const SectionHeader({Key? key, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -709,13 +710,21 @@ class SectionHeader extends StatelessWidget {
             fontWeight: FontWeight.w400,
           ),
         ),
-        const Text(
-          'See all',
-          style: TextStyle(
-            color: Color(0xFFFC8019),
-            fontSize: 12,
-            fontFamily: 'Inter',
-            fontWeight: FontWeight.w400,
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => DonorActiveReq()),
+            );
+          },
+          child: const Text(
+            'See all',
+            style: TextStyle(
+              color: Color(0xFFFC8019),
+              fontSize: 12,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w400,
+            ),
           ),
         ),
       ],

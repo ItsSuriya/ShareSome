@@ -6,7 +6,10 @@ import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sharesome/Donor_select_Donation_Type.dart';
+import 'package:sharesome/FoodRecognitionScreen.dart';
 import 'package:sharesome/Home_Donar.dart';
+import 'package:sharesome/Splash_page.dart';
+import 'package:sharesome/food_item_details.dart';
 import 'package:sharesome/pop_up.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -126,7 +129,30 @@ class _PostDonationState extends State<PostDonation> {
   }
 
   Future<void> _navigateToFoodItemDetails(
-      {Map<String, dynamic>? foodItem, int? index}) async {}
+      {Map<String, dynamic>? foodItem, int? index}) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => FoodItemDetails(
+          existingItem: foodItem, // Pass existing item if editing
+          index: index, // Pass index for editing
+        ),
+      ),
+    );
+
+    if (result != null && result is Map<String, dynamic>) {
+      setState(() {
+        if (index != null) {
+          // Update the existing food item if editing
+          _donations[index] = result;
+        } else {
+          // Add new food item if creating
+          _donations.add(result);
+        }
+        _showAddFoodItems = true;
+      });
+    }
+  }
 
   // Edit a food item in Firestore
   Future<void> _editFoodItemInFirestore(
@@ -391,14 +417,32 @@ class _PostDonationState extends State<PostDonation> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 7),
-                          Text(
-                            'Mention available food',
-                            style: const TextStyle(
-                              color: Color(0xFFFC8019),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                            ),
+                          const SizedBox(height: 15),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment
+                                .spaceBetween, // Align text and icon at opposite ends
+                            children: [
+                              Text(
+                                'Mention available food',
+                                style: const TextStyle(
+                                  color: Color(0xFFFC8019),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.camera_alt_rounded),
+                                onPressed: () {
+                                  // Navigate to CameraPage
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            FoodRecognitionScreen()),
+                                  );
+                                },
+                              ),
+                            ],
                           ),
                           const SizedBox(height: 7),
                           if (_showAddFoodItems) buildFoodItemList(),

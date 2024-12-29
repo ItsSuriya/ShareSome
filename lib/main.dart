@@ -20,6 +20,7 @@ import 'package:sharesome/onboarding3.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:sharesome/recipientpersonal.dart';
 
 import 'Post_Donation.dart';
 import 'donor_oldagehome_view.dart';
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
         //     final String? documentId = ModalRoute.of(context)?.settings.arguments as String?;
         //     return DonorPersonalInfo(documentId: documentId ?? ''); // Provide a default empty string if documentId is null},
         //     },}
-        home: Page1(),
+        home: HomeDonar(),
         // ...
         routes: {
           '/home': (context) => HomeDonar(),

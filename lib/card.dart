@@ -28,8 +28,8 @@ class FoodRequestCard extends StatelessWidget {
         return Column(
           children: requests.map((request) {
             // Dynamically assigned variables
-            String homeName = request['businessName'] ?? '';
-            String distance = request['location'] ?? '';
+            String homeName = request['Organization Name'] ?? '';
+            String distance = request['Location'] ?? '';
 
             return Container(
               margin: const EdgeInsets.only(

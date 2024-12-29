@@ -6,6 +6,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:sharesome/Recipient_Select%20Request%20Type.dart';
 import 'package:sharesome/Request%20Success_Pop%20up.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Requestfood extends StatefulWidget {
   const Requestfood({super.key});
@@ -16,6 +18,8 @@ class Requestfood extends StatefulWidget {
 
 class _RequestfoodState extends State<Requestfood> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _organizationNameController =
+      TextEditingController();
   final TextEditingController _locationController = TextEditingController();
   final TextEditingController _quantityController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
@@ -37,6 +41,13 @@ class _RequestfoodState extends State<Requestfood> {
     _quantityController.dispose();
     _dateController.dispose();
     super.dispose();
+  }
+
+  String? _validateNotEmpty(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'This field is required';
+    }
+    return null;
   }
 
   Future<void> _getCurrentLocation() async {
@@ -187,14 +198,13 @@ class _RequestfoodState extends State<Requestfood> {
             items: items.map((item) {
               return DropdownMenuItem<String>(
                 value: item,
-                child: label ==
-                        'Dietary Information' // Check if it's dietary dropdown
+                child: label == 'Dietary Information'
                     ? Row(
                         children: [
                           Image.asset(
                             item == 'Vegetarian'
-                                ? 'assets/veg.png' // Image for Vegetarian
-                                : 'assets/nveg.png', // Image for Non-Vegetarian
+                                ? 'assets/veg.png'
+                                : 'assets/nveg.png',
                             width: 24,
                             height: 24,
                           ),
@@ -202,7 +212,7 @@ class _RequestfoodState extends State<Requestfood> {
                           Text(item),
                         ],
                       )
-                    : Text(item), // Default text if it's not dietary dropdown
+                    : Text(item),
               );
             }).toList(),
             onChanged: onChanged,
@@ -231,11 +241,14 @@ class _RequestfoodState extends State<Requestfood> {
             );
           },
         ),
-        title: const Text('Request Donation',
-            style: TextStyle(
-                color: Colors.black,
-                fontSize: 18,
-                fontWeight: FontWeight.w600)),
+        title: const Text(
+          'Request Donation',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(18.0),
@@ -254,6 +267,13 @@ class _RequestfoodState extends State<Requestfood> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
+                          const SizedBox(height: 10),
+                          buildTextField(
+                            label: 'Organization Name',
+                            controller: _organizationNameController,
+                            placeholder: 'Enter your organization name',
+                            validator: _validateNotEmpty,
+                          ),
                           buildTextField(
                             label: 'Location',
                             controller: _locationController,
@@ -400,10 +420,32 @@ class _RequestfoodState extends State<Requestfood> {
                           Padding(
                             padding: const EdgeInsets.all(3.0),
                             child: ElevatedButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 if (_formKey.currentState?.validate() ??
                                     false) {
-                                  showCustomPopup1(context);
+                                  {
+                                    CollectionReference c = FirebaseFirestore
+                                        .instance
+                                        .collection("Recipient Request");
+                                    try {
+                                      // Save data with UID
+                                      await c.add({
+                                        'Organization Name':
+                                            _organizationNameController.text,
+                                        'Food Type': _selectedFoodType,
+                                        'People in need':
+                                            _quantityController.text,
+                                        'Date': _dateController.text,
+                                        'Prefered time': _timeController.text,
+                                        'location': _locationController.text,
+                                      });
+
+                                      showCustomPopup1(context);
+                                    } catch (e) {
+                                      _showSnackbar(
+                                          'Failed to submit request: $e');
+                                    }
+                                  }
                                 }
                               },
                               style: ElevatedButton.styleFrom(

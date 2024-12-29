@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sharesome/Post_Donation.dart';
+import 'package:sharesome/Recipient_Select%20Request%20Type.dart';
+import 'package:sharesome/Resipient_avalable_food_donor.dart';
 import 'package:sharesome/card.dart';
 import 'package:sharesome/card1.dart';
 import 'package:sharesome/donor_oldage_fund.dart';
@@ -374,7 +376,8 @@ class _HomeRecipientState extends State<HomeRecipient> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => PostDonation(),
+                                      builder: (context) =>
+                                          RequestTypeSelection(),
                                     ),
                                   );
                                 },
@@ -591,7 +594,7 @@ class _HomeRecipientState extends State<HomeRecipient> {
                       ),
                       const SizedBox(height: 1),
                       const Text(
-                        'Donate Now',
+                        'Request Now',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 10,
@@ -688,7 +691,7 @@ class _HomeRecipientState extends State<HomeRecipient> {
 class SectionHeader extends StatelessWidget {
   final String title;
 
-  const SectionHeader({required this.title});
+  const SectionHeader({Key? key, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -704,13 +707,22 @@ class SectionHeader extends StatelessWidget {
             fontWeight: FontWeight.w400,
           ),
         ),
-        const Text(
-          'See all',
-          style: TextStyle(
-            color: Color(0xFFFC8019),
-            fontSize: 12,
-            fontFamily: 'Inter',
-            fontWeight: FontWeight.w400,
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => RecipientAvailableFoodDonor()),
+            );
+          },
+          child: const Text(
+            'See all',
+            style: TextStyle(
+              color: Color(0xFFFC8019),
+              fontSize: 12,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w400,
+            ),
           ),
         ),
       ],
