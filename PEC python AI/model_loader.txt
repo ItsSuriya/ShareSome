@@ -1,0 +1,5 @@
+import pickle
+
+def load_trained_model(model_path='model.pkl'):
+    with open(model_path, 'rb') as f:
+        return pickle.load(f)
