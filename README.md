@@ -5,7 +5,8 @@ Share-Some is a mobile application developed for the Smart India Hackathon 2024 
  # Problem
 In India, approximately 40% of the food produced, amounting to 70 million tons annually, goes to waste. This results in a staggering economic loss of ₹92,000 crores each year, while millions continue to suffer from hunger and malnutrition. Share-Some aims to bridge this gap by creating an efficient food redistribution network.
 
-🎯 Key Features
+# 🎯 Key Features:
+
 AI-Powered Matching: An intelligent system suggests the most suitable recipients for a donation based on food requirements, and other factors.
 
 Real-Time Communication: An in-app messaging service, powered by Socket.io, allows for seamless coordination between donors and recipients.
@@ -19,7 +20,8 @@ Quality & Trust: A feedback system allows recipients to rate the quality of the 
 
 NGO Collaboration: NGOs can identify individuals in hunger spots without access to technology and coordinate food collection.
 
-🛠️ Technical Stack
+# 🛠️ Technical Stack:
+
 Our application is built using a modern and scalable tech stack:
 
 Frontend: Flutter (for cross-platform mobile)
@@ -33,7 +35,8 @@ Database: Cloud Firestore (NoSQL)
 Authentication: Firebase Authentication (Phone number/password)
 
 
-Cloud Services:
+# Cloud Services:
+
 
 Hosting: Firebase
 
@@ -43,17 +46,18 @@ APIs:
 
 Maps & Location: Google Maps API
 
-🏛️ Project Architecture
+# 🏛️ Project Architecture:
 Here is a high-level overview of the application's workflow:
 <img width="1408" height="602" alt="image" src="https://github.com/user-attachments/assets/f432967d-3495-4be4-a9e1-a6ec14e7c380" />
 
 
-🤝 Author : Suriya SK ,Surendar B, Gnaneshwaran JS ,KumaraGuru M, Sharath R
+# 🤝 Author : Suriya SK ,Surendar B, Gnaneshwaran JS ,KumaraGuru M, Sharath R
 
 
 
 This is our Application UI :
 <img width="1250" height="747" alt="image" src="https://github.com/user-attachments/assets/a3355da3-2707-475c-994d-7154a76b0b69" />
+
 
 
 
