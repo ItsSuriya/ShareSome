@@ -1,8 +1,8 @@
-#Share-Some: Towards Zero Food Waste
+# Share-Some: Towards Zero Food Waste
 
 Share-Some is a mobile application developed for the Smart India Hackathon 2024 (SIH1588) to address the critical issue of food wastage in India. Our platform connects donors with surplus food, such as hotels and event organizers, to beneficiaries like old age homes, orphanages, and other people in need.
 
- #Problem
+ # Problem
 In India, approximately 40% of the food produced, amounting to 70 million tons annually, goes to waste. This results in a staggering economic loss of ₹92,000 crores each year, while millions continue to suffer from hunger and malnutrition. Share-Some aims to bridge this gap by creating an efficient food redistribution network.
 
 🎯 Key Features
@@ -49,7 +49,11 @@ Here is a high-level overview of the application's workflow:
 
 
 🤝 Author : Suriya SK ,Surendar B, Gnaneshwaran JS ,KumaraGuru M, Sharath R
+
+
+
 This is our Application UI :
 <img width="1250" height="747" alt="image" src="https://github.com/user-attachments/assets/a3355da3-2707-475c-994d-7154a76b0b69" />
+
 
 
